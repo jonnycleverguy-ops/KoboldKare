@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Request manual activation file
-        uses: game-ci/unity-runner@v4
+        uses: game-ci/unity-builder@v4
         id: getManualActivationFile
         with:
           entrypoint: /request_activation.sh
