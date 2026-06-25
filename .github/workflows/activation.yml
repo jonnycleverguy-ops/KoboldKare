@@ -1,13 +1,22 @@
-name: Acquire Activation File
+name: Web Activation
+
 on: workflow_dispatch
+
 jobs:
   activation:
     name: Request Manual Activation File 🚀
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: game-ci/unity-request-license@v4
-      - uses: actions/upload-artifact@v4
+
+      - name: Request manual activation file
+        uses: game-ci/unity-runner@v4
+        id: getManualActivationFile
         with:
-          name: Activation File
-          path: ${{ steps.clearspaces.outputs.artifact }}
+          entrypoint: /request_activation.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manual-activation-file
+          path: ${{ steps.getManualActivationFile.outputs.filePath }}
